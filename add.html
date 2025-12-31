@@ -1,0 +1,162 @@
+<div class="page">
+  <div class="card">
+
+    <h2>Add Student</h2>
+
+    <!-- NAME -->
+    <div class="input-group">
+      <label class="label">Student Name *</label>
+
+      <input
+        autocomplete="off"
+        class="input"
+        type="text"
+        [(ngModel)]="student.name"
+        name="name"
+      />
+        <small class="error" *ngIf="submitted && !student.name">
+        Name is required
+      </small>
+    </div>
+
+    <!-- DOB -->
+    <div class="input-group">
+      <label class="label">Date of Birth *</label>
+
+      <input
+        class="input"
+        type="date"
+        [(ngModel)]="student.dob"
+        name="dob"
+        [max]="today"
+      />
+
+      <small class="error" *ngIf="submitted && !student.dob">
+        Date of Birth is required
+      </small>
+    </div>
+
+    <!-- Gender -->
+    <div class="input-group">
+      <label class="label">Gender *</label>
+
+      <div class="inline">
+        <label><input type="radio" [(ngModel)]="student.gender" value="Male" name="gender"> Male</label>
+        <label><input type="radio" [(ngModel)]="student.gender" value="Female" name="gender"> Female</label>
+        <label><input type="radio" [(ngModel)]="student.gender" value="Other" name="gender"> Other</label>
+      </div>
+
+      <small class="error" *ngIf="submitted && !student.gender">
+        Select gender
+      </small>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="input-group">
+      <label class="label">Mobile *</label>
+
+      <input
+        autocomplete="off"
+        class="input"
+        type="text"
+        [(ngModel)]="student.mobile"
+        name="mobile"
+        maxlength="10"
+      />
+
+      <small class="error" *ngIf="submitted && !student.mobile">
+        Mobile is required
+      </small>
+
+      <small class="error" *ngIf="submitted && student.mobile && student.mobile.length !== 10">
+        Must be 10 digits
+      </small>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="input-group">
+      <label class="label">Email</label>
+
+      <input
+        autocomplete="off"
+        class="input"
+        type="email"
+        [(ngModel)]="student.email"
+        name="email"
+      />
+
+      <small class="error" *ngIf="submitted && student.email && !student.email.includes('@')">
+        Enter valid email
+      </small>
+    </div>
+
+    <!-- BLOOD GROUP -->
+    <div class="input-group">
+      <label class="label">Blood Group</label>
+
+      <select class="input" [(ngModel)]="student.bloodGroup">
+        <option value="">Select Blood Group</option>
+        <option *ngFor="let b of bloodGroups" [value]="b">{{ b }}</option>
+      </select>
+    </div>
+
+    <!-- NATIONALITY -->
+    <div class="input-group">
+      <label class="label">Nationality</label>
+      <input class="input" type="text" [(ngModel)]="student.nationality">
+    </div>
+
+    <!-- PHYSICALLY CHALLENGED -->
+    <div class="input-group">
+      <label class="label">Physically Challenged</label>
+
+      <select class="input" [(ngModel)]="student.physicallyChallenged">
+        <option value="">Select</option>
+        <option value="YES">YES</option>
+        <option value="NO">NO</option>
+      </select>
+    </div>
+
+    <h3>Educational Qualifications</h3>
+
+    <table class="table">
+      <tr>
+        <th>Degree *</th>
+        <th>Institution *</th>
+        <th>Action</th>
+      </tr>
+
+      <tr *ngFor="let q of qualifications; let i=index">
+        <td>
+          <input class="input" [(ngModel)]="q.degree">
+          <small class="error" *ngIf="submitted && !q.degree">Required</small>
+        </td>
+
+        <td>
+          <input class="input" [(ngModel)]="q.institution">
+          <small class="error" *ngIf="submitted && !q.institution">Required</small>
+        </td>
+
+        <td>
+          <button class="danger" (click)="removeRow(i)" *ngIf="qualifications.length > 1">
+            Remove
+          </button>
+        </td>
+      </tr>
+    </table>
+
+    <button class="secondary" (click)="addRow()">Add Row</button>
+
+   <div class="input-group">
+  <label class="label">Student Photo</label>
+  <input class="input" type="file" (change)="onFile($event)">
+</div>
+
+
+    <!-- SAVE -->
+    <div class="actions">
+      <button class="primary" (click)="submit()">Save</button>
+    </div>
+
+  </div>
+</div>

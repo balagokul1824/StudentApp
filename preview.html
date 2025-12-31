@@ -1,0 +1,33 @@
+<div style="padding: 25px">
+
+  <table border="1" width="100%" class="table" style="margin-top:10px; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Student Name</th>
+        <th>Qualification</th>
+        <th>DOB</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let s of students; let i=index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ getQualification(s.qualification) }}</td>
+        <td>{{ s.dob }}</td>
+        <td>
+          <button (click)="goEdit(s._id)">Edit</button>
+        </td>
+      </tr>
+
+      <tr *ngIf="students.length === 0">
+        <td colspan="5" style="text-align:center">No records found</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
